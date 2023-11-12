@@ -3,7 +3,7 @@ Bibliotheken für Raspi Pico\
 \
 #flash:\
 Verwaltet beliebig viele 4kb Sektoren des Flashspeichers vom Ende herab.\
-Stellt pro 4kb-Sektor 63 uint32_t Werte in eimen eindimensionalen Array zur verfuegung welche nur 1/16 der Schreibvorgange im Flashspeicher benoetigen.\
+Stellt pro 4kb-Sektor 63 uint32_t Werte in eimen eindimensionalen Array zur verfuegung welche nur 1/16 der Loeschvorgange im Flashspeicher benoetigen. Die Funktion Schaltet die IRQs beim schreiben in den Flash ab\
 Es gibt vier Funktionen von denen flash_init(stage) zuerst aufgerufen werden muss bevor
 auf die anderen drei zugegriffen werden kann. Weitere Informationen finden sich in den Kommentaren der flash.h Datei.\
 void flash_init(uint8_t stage): initialisiert den Speicher mit der Kennung stage. Ist der Speicher neu wird er mit 0en gefuellt.\
