@@ -12,13 +12,23 @@ void flash_setDataRow(uint8_t start, uint8_t end, uint32_t *data): Speichert for
 uint32_t *flash_getData(): Gibt das uint32_t Array[63] zurueck\
 \
 #sound:\
-Giebt Toene mit einem Passivbuzzer aus\
+Spielt die zwoelf Toene ueber zwei Oktaven\
+sound_init() muss zu erst aufgerufen werden!\
+sound_play(uint8_t note, uint8_t dauer, uint8_t oktave)\
+note: 0=C bis 11=B\
+dauer: Teilt die 1,5 Sekunden tondauer (1,5sec/dauer)\
+oktave: 0=Grundoktave, 1=eine Oktave hoeher\
 \
 #ili9341:\
-Displaygrafik\
+Displaygrafik mit 565-bit Farbcodierung\
+Zwie Textfunktionen, eine mit 12x12-Pixel und eine mit 16x16-Pixel Font\
+Zwei Rechteck-Zeichenfunktionen, eine Solid die andere mit Verlauf von zwei Farben\
 \
 #st7735:\
-Displaygrafik\
+Displaygrafik mit 444-bit Farbcodierung\
+Zwie Textfunktionen, eine mit 12x12-Pixel und eine mit 16x16-Pixel Font\
+Zwei Rechteck-Zeichenfunktionen mit 656-Bit Farbcodierung, eine Solid die andere mit\
+Verlauf von zwei Farben\
 \
 #fonts:\
 Die Fonts fuer Displaygrafik\
