@@ -2,11 +2,12 @@
 #define momefilo_sound_h 1
 
 #define BUZZER_PIN 5
-#define SOUND_FALL 1
-#define SOUND_ROW 2
-#define SOUND_BAH 3
-#define SOUND_YEH 4
 
 void sound_init();
-void Sound_play(uint8_t sound);
+
+/* spielt die
+ * note: 0=C bis 11=B mit einer Dauer von 1,5 Secunden.
+ * dauer: teilt die Dauer (1,5sec/dauer)
+ * oktave: 0=Grundoktave, 1=eine Oktave hoeher*/
+void sound_play(uint8_t note, uint8_t dauer, uint8_t oktave);
 #endif
