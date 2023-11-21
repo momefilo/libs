@@ -1,8 +1,7 @@
 //momefilo Desing
 #ifndef momefilo_st7735_h
 #define momefilo_st7735_h 1
-#include "hardware/spi.h"
-#include "hardware/gpio.h"
+
 #include "pico/stdlib.h"
 
 #define HORIZONTAL 0

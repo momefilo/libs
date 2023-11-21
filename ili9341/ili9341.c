@@ -1,7 +1,6 @@
 // momefilo Desing
 #include "hardware/spi.h"
 #include "hardware/gpio.h"
-#include "pico/stdlib.h"
 #include "../fonts/font16x16.h"
 #include "../fonts/font12x12.h"
 #include "ili9341.h"

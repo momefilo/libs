@@ -23,12 +23,14 @@ oktave: 0=Grundoktave, 1=eine Oktave hoeher\
 Displaygrafik mit 565-bit Farbcodierung\
 Zwie Textfunktionen, eine mit 12x12-Pixel und eine mit 16x16-Pixel Font\
 Zwei Rechteck-Zeichenfunktionen, eine Solid die andere mit Verlauf von zwei Farben\
+Genaue Informationen finden sich in der Datei "ili9341/ili9341.h"\
 \
 #st7735:\
 Displaygrafik mit 444-bit Farbcodierung\
 Zwie Textfunktionen, eine mit 12x12-Pixel und eine mit 16x16-Pixel Font\
-Zwei Rechteck-Zeichenfunktionen mit 656-Bit Farbcodierung, eine Solid die andere mit\
+Zwei Rechteck-Zeichenfunktionen mit 656-Bit Farbcodierung, eine Solid die andere mit
 Verlauf von zwei Farben\
+Genaue Informationen finden sich in der Datei "st7735/st7735.h"\
 \
 #fonts:\
 Die Fonts fuer Displaygrafik\

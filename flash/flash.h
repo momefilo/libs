@@ -1,6 +1,8 @@
 #ifndef momefilo_flash_h
 #define momefilo_myflash_h 1
 
+#include "pico/stdlib.h"
+
 /* Initialisiert den mit stage bezeichneten 4096 Byte grossen Sektor zu einem uint32_t Arry mit
  * der Groesse 63
  * stage >=0; die Id des Sektors welcher benutzt wird*/

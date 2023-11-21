@@ -1,6 +1,8 @@
 // momefilo Desing
 #include "../fonts/font16x16.h"
 #include "../fonts/font12x12.h"
+#include "hardware/spi.h"
+#include "hardware/gpio.h"
 #include "st7735.h"
 
 #define SPI_PORT spi1

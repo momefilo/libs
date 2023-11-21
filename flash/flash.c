@@ -8,7 +8,7 @@ uint8_t Pagecount;
 uint32_t Data[63];
 
 /* Pueft ob die letzte der 16 256Byte-Pages erreicht ist und loescht in diesem Falle den gesamten
- * 4096Byte-Sector bevor die neue Page geschrieben wird*/
+ * 4096Byte-Sektor bevor die neue Page geschrieben wird*/
 void write_Flash(){
 	uint32_t flags = save_and_disable_interrupts();
 	uint8_t buf[FLASH_PAGE_SIZE];
@@ -32,7 +32,7 @@ void write_Flash(){
 	Pagecount++;
 }
 
-/* Liest Data und aus der aktuellen 256byte-Page */
+/* Liest Data aus der aktuellen 256byte-Page */
 void get_Flash(){
 	int addr;
 	if(Pagecount < 1){
