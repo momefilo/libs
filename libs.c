@@ -56,17 +56,28 @@
 }
 */
 
+uint16_t area[4];
 
 int main(){
 	stdio_init_all();
 //	flash_init(0);
-	sound_init();
+//	sound_init();
 	ili9341_init();
-	buttons_init();
+	ili9341_touch_init();
+	setOrientation(VERTICAL);
+	setBgColor(0x0000);
+//	buttons_init();
 	printf("\nstart\n");
-//	test_sound();
-	sleep_ms(500);
 	while(1){
-
+		uint16_t *pos = ili9341_getTouch();
+		if(pos[0]<0xffff){
+			area[0]=pos[0];
+			area[1]=pos[1];
+			area[2]=pos[0]+2;
+			area[3]=pos[1]+2;
+			printf("%d, %d\n", pos[0], pos[1]);
+			paintRect(area, 0xffff);
+		}
+		sleep_ms(100);
 	}
 }

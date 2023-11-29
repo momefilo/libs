@@ -12,17 +12,19 @@ void flash_setDataRow(uint8_t start, uint8_t end, uint32_t *data): Speichert for
 uint32_t *flash_getData(): Gibt das uint32_t Array[63] zurueck\
 \
 #sound:\
-Spielt die zwoelf Toene ueber zwei Oktaven\
+Spielt die zwoelf Toene ueber drei Oktaven\
 sound_init() muss zu erst aufgerufen werden!\
 sound_play(uint8_t note, uint8_t dauer, uint8_t oktave)\
 note: 0=C bis 11=B\
 dauer: Teilt die 1,5 Sekunden tondauer (1,5sec/dauer)\
-oktave: 0=Grundoktave, 1=eine Oktave hoeher\
+oktave: 0=Grundoktave, 1=eine Oktave hoeher, 2=zwei Oktaven hoeher\
 \
 #ili9341:\
 Displaygrafik mit 565-bit Farbcodierung\
 Zwie Textfunktionen, eine mit 12x12-Pixel und eine mit 16x16-Pixel Font\
 Zwei Rechteck-Zeichenfunktionen, eine Solid die andere mit Verlauf von zwei Farben\
+Touchfunktion mit ili9341_touch_init() initialisieren und\
+mit ili9341_getTouch() ein uint16_t Array mit x und y position bekommen\
 Genaue Informationen finden sich in der Datei "ili9341/ili9341.h"\
 \
 #st7735:\
