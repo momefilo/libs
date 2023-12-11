@@ -56,6 +56,16 @@
 }
 */
 
+/*void test_flashCount(){
+	flash_CounterInit(0);
+//	flash_resetCount();
+	for(int i=0; i<8; i++){
+		int j = flash_incCount();
+		if(1)printf("Test x: %x, d: %d\n", j,j);
+	}
+}
+*/
+
 uint16_t area[4];
 
 int main(){
@@ -68,7 +78,8 @@ int main(){
 	setBgColor(0x0000);
 //	buttons_init();
 	printf("\nstart\n");
-	while(1){
+//	test_flashCount();
+	while(1){/*
 		uint16_t *pos = ili9341_getTouch();
 		if(pos[0]<0xffff){
 			area[0]=pos[0];
@@ -78,6 +89,6 @@ int main(){
 			printf("%d, %d\n", pos[0], pos[1]);
 			paintRect(area, 0xffff);
 		}
-		sleep_ms(100);
+		sleep_ms(100);*/
 	}
 }

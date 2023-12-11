@@ -1,11 +1,92 @@
+//momefilo Desing
 #include "hardware/flash.h"
 #include "hardware/sync.h"
 #include "flash.h"
 
-uint32_t Flash_Offset;
-uint8_t *Flash_Content;
-uint8_t Pagecount;
+int Count;
+uint32_t Flash_Offset, Counter_Offset;
+uint8_t *Flash_Content, *Counter_Content, Counter_Werte[256];
+uint8_t Pagecount, Counter_Page, Counter_Byte;
 uint32_t Data[63];
+
+void set_Count(){
+	uint8_t salz = 0, wert = Counter_Werte[Counter_Byte];
+	if(wert > 0x7E) salz = 1;
+	else if(wert > 0x3E) salz = 2;
+	else if(wert > 0x1E) salz = 3;
+	else if(wert > 0x0E) salz = 4;
+	else if(wert > 0x06) salz = 5;
+	else if(wert > 0x02) salz = 6;
+	else if(wert > 0x00) salz = 7;
+	else salz = 8;
+	Count = Counter_Page * 256*8 + Counter_Byte*8 + salz;
+}
+
+int flash_resetCount(){
+	uint32_t flags = save_and_disable_interrupts();
+	flash_range_erase(Counter_Offset, FLASH_SECTOR_SIZE);
+	restore_interrupts(flags);
+	for(int i=0; i<256; i++)Counter_Werte[i]=0xFF;
+	Counter_Byte = 0;
+	Counter_Page = 0;
+	set_Count();
+	return Count;
+}
+
+int flash_CounterInit(uint8_t stage){
+	Counter_Offset = (PICO_FLASH_SIZE_BYTES - (stage + 1) * FLASH_SECTOR_SIZE);
+	Counter_Content = (uint8_t *) (XIP_BASE + Counter_Offset);
+	Counter_Page = 0;
+	Counter_Byte = 0;
+	bool found = false;
+	for(uint8_t myx=0; myx<16; myx++){
+		for(uint16_t myy=0; myy<256; myy++){
+			if(Counter_Content[(15-myx)*256 + 255-myy] != 0xFF){
+				for(uint16_t y=0; y<256; y++){
+					if(y<255-myy)Counter_Werte[y] = 0;
+					else if(y==255-myy)Counter_Werte[y] = Counter_Content[(15-myx)*256 + 255-myy];
+					else if(y>255-myy)Counter_Werte[y] = 0xFF;
+				}
+				Counter_Page = 15 - myx;
+				Counter_Byte = 255 - myy;
+				found = true;
+				break;
+			}
+		}
+		if(found) break;
+	}
+	if(! found) for(int i=0; i<256; i++)Counter_Werte[i]=0xFF;
+	set_Count();
+	return Count;
+}
+
+int flash_getCount(){ return Count; }
+
+int flash_incCount(){
+	uint32_t flags = save_and_disable_interrupts();
+	if(Counter_Werte[Counter_Byte]>0) Counter_Werte[Counter_Byte] = Counter_Werte[Counter_Byte] / 2;
+	else if(Counter_Byte < 255){
+		Counter_Byte++;
+		Counter_Werte[Counter_Byte] = Counter_Werte[Counter_Byte] / 2;
+	}
+	else if(Counter_Page < 15){
+		Counter_Page++;
+		Counter_Byte = 0;
+		for(uint16_t y=0; y<256; y++) Counter_Werte[y] = 0xFF;
+		Counter_Werte[Counter_Byte] = Counter_Werte[Counter_Byte] / 2;
+	}
+	else{
+		flash_range_erase(Counter_Offset, FLASH_SECTOR_SIZE);
+		Counter_Page = 0;
+		Counter_Byte = 0;
+		for(uint16_t y=0; y<256; y++) Counter_Werte[y] = 0xFF;
+		Counter_Werte[Counter_Byte] = Counter_Werte[Counter_Byte] / 2;
+	}
+	flash_range_program(Counter_Offset + Counter_Page * FLASH_PAGE_SIZE, Counter_Werte, FLASH_PAGE_SIZE);
+	restore_interrupts(flags);
+	set_Count();
+	return Count;
+}
 
 /* Pueft ob die letzte der 16 256Byte-Pages erreicht ist und loescht in diesem Falle den gesamten
  * 4096Byte-Sektor bevor die neue Page geschrieben wird*/

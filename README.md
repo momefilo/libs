@@ -10,6 +10,9 @@ void flash_init(uint8_t stage): initialisiert den Speicher mit der Kennung stage
 void flash_setData(uint8_t id, uint32_t data): Speichert den Wert data an der Position id im uint32_t Array.\
 void flash_setDataRow(uint8_t start, uint8_t end, uint32_t *data): Speichert fortlaufen von start bis einschliesslich end die Daten von *data im uint32_t Array.\
 uint32_t *flash_getData(): Gibt das uint32_t Array[63] zurueck\
+#flash_CounterInit(uint8_t stage)\
+stellt einen Zaehler von 1 bis 32768 zur Verfuegung der nur bei jedem Ueberlauf oder flash_resetCount()\
+einen Loeschvorgang benoetigt
 \
 #sound:\
 Spielt die zwoelf Toene ueber drei Oktaven\

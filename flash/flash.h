@@ -8,6 +8,18 @@
  * stage >=0; die Id des Sektors welcher benutzt wird*/
 void flash_init(uint8_t stage);
 
+/* Stellt einen Zaehler von 1 bis 32768 zur Verfuegung dessen Wert in einem 4096 Byte Sektor im
+ *  Flash gespeichert wird. Dabei wird der Sektor nur bei jedem Ueberlauf von 32768 zu 1, oder bei
+ *  einem flash_resetCount() geloescht;*/
+int flash_CounterInit(uint8_t stage);
+
+/* Erhoeht den Zaehler um 1 und gibt den neuen Zaehler-Wert zurueck*/
+int flash_incCount();
+/* Setzt den Zaehler auf 1. (benoetigt einen Loschvorgang den Sektors)*/
+int flash_resetCount();
+/* Gibt den aktuellen Zaehler zurueck ohne ihn zu erhoehen*/
+int flash_getCount();
+
 /* Schreibt data an Position id im uint32_t Array
  * id >= 0 && id <63: Position im uint32_t Array
  * data = uint32_t; Daten die in uint32_t Array an Position id gespeichert werden*/
